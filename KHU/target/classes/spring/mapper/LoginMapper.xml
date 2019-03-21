@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- context-datasource.xml에 mybatis-spring:scan에 등록된 패키지의 Mapper인터페이스명과 
+	네임스페이스를 반드시 동일하게 주어야 함 -->
+<mapper namespace="com.tis.mapper.LoginMapper">
+	<!-- 아이디로 회원 정보 가져오기 -->
+	<select id="findUser" parameterType="User" resultType="User">
+		select * from Student where studentNum=#{studentNum}
+	</select>
+	
+	<select id="findAdmin" parameterType="Admin" resultType="Admin">
+		select * from Admin where adminID=#{adminID}
+	</select>
+</mapper>

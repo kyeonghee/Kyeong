@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+ <typeAliases>
+ 	<typeAlias type="com.tis.vo.AdminVO" alias="Admin"/>
+ 	<typeAlias type="com.tis.vo.BookVO" alias="Book"/>
+ 	<typeAlias type="com.tis.vo.PagingVO" alias="Paging"/>
+ 	<typeAlias type="com.tis.vo.UserVO" alias="User"/>
+ 	<typeAlias type="com.tis.vo.RentalVO" alias="Rental"/>
+ 	<typeAlias type="com.tis.vo.DormVO" alias="Dorm"/>
+ </typeAliases>
+ 
+  <mappers>  	
+  	 <mapper resource="spring/mapper/AdminMapper.xml"/>
+  	 <mapper resource="spring/mapper/PagingMapper.xml"/>
+  	 <mapper resource="spring/mapper/LoginMapper.xml"/>
+  	 <mapper resource="spring/mapper/UserMapper.xml"/>
+  	 <mapper resource="spring/mapper/DormMapper.xml"/>
+  </mappers>
+</configuration>

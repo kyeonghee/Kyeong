@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- context-datasource.xml에 mybatis-spring:scan에 등록된 패키지의 Mapper인터페이스명과 
+	네임스페이스를 반드시 동일하게 주어야 함 -->
+<mapper namespace="com.tis.mapper.UserMapper">
+	<insert id="insertRental" parameterType="Rental">
+		insert into BookRental
+		values(#{bookNum},rentalnum_seq.nextval,sysdate,(sysdate+7),#{studentNum})
+	</insert>
+
+	<select id="rentalList" resultType="Rental" parameterType="string"
+		resultMap="RentalJoin">
+		select r.bookNum, bookName, author, rentalDate, returnDate,studentNum
+		from Book b, BookRental r
+		where b.bookNum = r.bookNum and
+		studentNum=#{value}
+	</select>
+	<resultMap type="Rental" id="RentalJoin">
+		<id property="rentalNum" column="rentalNum" />
+		<result property="bookNum" column="bookNum" />
+		<result property="rentalDate" column="rentalDate" />
+		<result property="returnDate" column="returnDate" />
+		<result property="studentNum" column="studentNum" />
+		
+		<!-- ofType : join할 상대 테이블, collection는 1:다일 경우(arraylist일때 사용) -->
+		<collection property="bookList" javaType="java.util.ArrayList" ofType="Book">
+			<result property="bookName" column="bookName" />
+			<result property="author" column="author" />
+			<result property="author" column="author" />
+			<result property="publisher" column="publisher" />
+			<result property="publishDate" column="publishDate" />
+			<result property="bookImage" column="bookImage" />
+			<result property="bookCheck" column="bookCheck" />
+		</collection>
+	</resultMap>
+	
+	<update id="updateRental1" parameterType="int">
+		update book set bookCheck=1 where bookNum=#{value}
+	</update>
+	
+	<update id="updateRental2" parameterType="int">
+		update book set bookCheck=0 where bookNum=#{value}
+	</update>
+	
+	<delete id="DeleteRental" parameterType="Rental">
+		delete BookRental where studentNum=#{studentNum} and bookNum=#{bookNum}
+	</delete>
+	
+	<select id="isRental" parameterType="Rental" resultType="Integer">
+	select rentalNum from BookRental where bookNum=#{bookNum} and studentNum=#{studentNum}
+	</select>
+</mapper>
+
+
+
+
